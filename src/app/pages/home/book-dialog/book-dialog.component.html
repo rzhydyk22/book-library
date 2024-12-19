@@ -1,1 +1,55 @@
-<p>book-dialog works!</p>
+<h2 mat-dialog-title class="dialog-title">{{ data ? 'Edit Book' : 'Add New Book' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="bookForm" class="dialog-form">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Author</mat-label>
+      <input matInput formControlName="author">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Year</mat-label>
+      <input matInput type="number" formControlName="year">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Details</mat-label>
+      <textarea matInput formControlName="details" class="details-textarea"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  @if (data) {
+    <button 
+      mat-icon-button 
+      color="warn" 
+      (click)="dialogRef.close('delete')"
+      class="delete-button"
+      matTooltip="Delete book"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  }
+  
+  <button mat-button (click)="dialogRef.close()" class="cancel-button">Cancel</button>
+  <button 
+    mat-raised-button 
+    color="primary"
+    [disabled]="bookForm.invalid"
+    (click)="save()"
+    class="save-button"
+  >
+    Save
+  </button>
+</mat-dialog-actions> 

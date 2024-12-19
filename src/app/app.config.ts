@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withRouterConfig({ onSameUrlNavigation: 'reload', paramsInheritanceStrategy: 'always' }),
-    ),
+    ), provideAnimationsAsync(),
   ],
 }

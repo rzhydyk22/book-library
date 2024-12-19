@@ -1,1 +1,23 @@
-<p>books-page works!</p>
+<div class="books-container">
+  <header>
+    <h1>Books Library</h1>
+    <div class="header-actions">
+      <mat-form-field class="search-field">
+        <mat-label>Search books</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Search by title or author" />
+        <mat-icon matPrefix>search</mat-icon>
+        @if (searchControl.value) {
+          <button matSuffix mat-icon-button (click)="clearSearch()"></button>
+        }
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="openAddDialog()">Add Book</button>
+    </div>
+  </header>
+
+  <app-book-list
+    [books]="books$ | async"
+    (bookSelected)="openBookDialog($event)"
+    (bookDeleted)="deleteBook($event)"
+    (imageUploaded)="onImageUploaded($event)"
+  />
+</div>

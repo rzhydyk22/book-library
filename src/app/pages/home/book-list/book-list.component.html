@@ -1,1 +1,35 @@
-<p>book-list works!</p>
+<div class="book-grid">
+  @for (book of books; track book.id) {
+    <mat-card class="book-card">
+      <div class="book-image-container">
+        @if (book.imageUrl) {
+          <img [src]="book.imageUrl" alt="{{ book.name }}" class="book-image" />
+        } @else {
+          <div class="image-placeholder" (click)="onImageUploadClick(fileInput)">
+            <mat-icon>image</mat-icon>
+            <span>Add Image</span>
+            <input #fileInput type="file" hidden accept="image/*" (change)="onFileSelected($event, book.id)" />
+          </div>
+        }
+      </div>
+      <div class="card-content" (click)="bookSelected.emit(book)">
+        <mat-card-header>
+          <mat-card-title>{{ book.name }}</mat-card-title>
+          <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Year: {{ book.year }}</p>
+        </mat-card-content>
+      </div>
+
+      <mat-card-actions>
+        <button mat-icon-button>
+          <mat-icon (click)="bookSelected.emit(book)">edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="bookDeleted.emit(book.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>
